@@ -1,0 +1,13 @@
+<div class="col" id="<%= status %>">
+  <div class="row badge badge-default">
+    <h6>
+      <span class="badge badge-default">
+        <%= status.title %>
+      </span>
+    </h6>
+  </div>
+
+  <% @tickets.where(status: status.id).each do |ticket| %>
+    <%= render 'ticket_card', ticket: ticket %>
+  <% end %>
+</div>

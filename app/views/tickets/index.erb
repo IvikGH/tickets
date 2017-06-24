@@ -1,0 +1,34 @@
+<h1>Tickets</h1>
+<div class="container-fluid">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-pills nav-justified" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#open" role="tab">Open</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#closed" role="tab">Closed</a>
+    </li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div class="tab-pane active" id="open" role="tabpanel">
+      <div class="row">
+        <% Status.all.each do |status| %>
+          <% next if Status::CLOSED_STATUSES.include?(status.title) %>
+          <%= render 'statuses/status_column', status: status %>
+        <% end %>
+      </div>
+    </div>
+    <div class="tab-pane" id="closed" role="tabpanel">
+      <div class="row closed">
+        <% Status.all.each do |status| %>
+          <% next unless Status::CLOSED_STATUSES.include?(status.title) %>
+          <%= render 'statuses/status_column', status: status %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+</div>
