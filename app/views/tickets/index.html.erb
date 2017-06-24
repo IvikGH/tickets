@@ -1,0 +1,25 @@
+<h1>Tickets</h1>
+<div class="container-fluid">
+  <div class="row">
+    <% Status.all.each do |status| %>
+      <div class="col" id="<%= status %>">
+        <div class="row">
+          <div class="col">
+            <h3><%= status.title.capitalize %></h3>
+          </div>
+          <div class="col">
+            <% unless status == 'backlog' %>
+              <span class="badge badge-default">
+                some_text
+              </span>
+            <% end %>
+          </div>
+      </div>
+        <%= link_to('Add new', new_ticket_path(status: status), remote: true) %>
+        <% @tickets.where(status: status.id).each do |ticket| %>
+          <%= render 'ticket_card', ticket: ticket %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
