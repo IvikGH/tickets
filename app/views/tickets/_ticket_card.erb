@@ -1,0 +1,62 @@
+<div class="card" id="<%= object_container_id(ticket) %>">
+  <div class="card-block">
+    <!-- Tags -->
+    <% unless ticket.tag_list.empty? %>
+      <div class="container-fluid tags">
+        <% ticket.tag_list.each do |tag| %>
+          <span class="badge badge-info"><%= tag %></span>
+        <% end %>
+      </div>
+    <% end %>
+    <!-- Tags -->
+
+    <!-- Title and destroy -->
+    <div class="row">
+      <div class="col-8">
+        <h4 class="card-title"><%= ticket.description%></h4>
+      </div>
+      <div class="col-2">
+        <%= link_to(edit_ticket_path(ticket), remote: true) do %>
+          <span class="badge badge-warning">Edit</span>
+        <% end %>
+      </div>
+      <div class="col-2">
+        <%= link_to(ticket, method: :delete, data: { confirm: 'Are you sure?' }, remote: true) do %>
+          <span class="badge badge-danger">Destroy</span>
+        <% end %>
+      </div>
+    </div>
+    <!-- Title and destroy -->
+
+    <!-- Comments -->
+    <div class="container-fluid comments">
+      <% ticket.comments.each do |comment| %>
+        <div class="container-fluid comment" id="<%= object_container_id(comment) %>">
+          <div class="row">
+            <div class="col-8">
+              <%= comment.text%>
+            </div>
+            <div class="col-2">
+              <%= link_to(edit_comment_path(comment), remote: true) do %>
+                <span class="badge badge-warning">E</span>
+              <% end %>
+            </div>
+            <div class="col-2">
+              <%= link_to(comment, method: :delete, data: { confirm: 'Are you sure?' }, remote: true) do %>
+                <span class="badge badge-danger">D</span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <%= link_to('Add comment', new_comment_path(ticket_id: ticket.id,
+                                                user_id: current_user.id),
+                               class: 'new_comment',
+                               remote: true) %>
+    <!-- Comments -->
+
+    <p class="card-text"><%= ticket.notes%></p>
+  </div>
+</div>
