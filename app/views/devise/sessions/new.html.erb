@@ -1,26 +1,65 @@
-<h2>Log in</h2>
+<h2>Create ticket or Log in</h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+<div class="row">
+  <div class="col-8">
+    <div class="container">
+      <%= form_with model: @ticket || Ticket.new, local: true do |form| %>
+        <div class="field">
+          <%= form.label(:department, "Department:") %><br />
+          <%= collection_select(:ticket, :department_id,
+                                Department.all, :id, :title, prompt: true) %>
+        </div>
+        <div class="field">
+          <%= form.label(:employee, "Full name (last first):") %>
+          <br />
+          <%= form.text_field(:employee) %>
+        </div>
+        <div class="field">
+          <%= form.label(:employee_email, "Email:") %>
+          <br />
+          <%= form.text_field(:employee_email) %>
+        </div>
+        <div class="field">
+          <%= form.label(:subject, "Subject:") %>
+          <br />
+          <%= form.text_field(:subject) %>
+        </div>
+        <div class="field">
+          <%= form.label(:description, "Description:") %>
+          <br />
+          <%= text_area(:ticket, :description) %>
+        </div>
+        <div class="actions">
+          <%= submit_tag("Report ticket") %>
+        </div>
+      <% end %>
     </div>
-  <% end -%>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
 
-<%= render "devise/shared/links" %>
+  <div class="col-4">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="field">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password %><br />
+        <%= f.password_field :password, autocomplete: "off" %>
+      </div>
+
+      <% if devise_mapping.rememberable? -%>
+        <div class="field">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me %>
+        </div>
+      <% end -%>
+
+      <div class="actions">
+        <%= f.submit "Log in" %>
+      </div>
+    <% end %>
+
+    <%= render "devise/shared/links" %>
+  </div>
+</div>
