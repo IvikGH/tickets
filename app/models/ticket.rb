@@ -3,6 +3,7 @@ class Ticket < ApplicationRecord
   belongs_to :status
   belongs_to :user, optional: true
   belongs_to :department
+  has_many :comments
 
   validates :status_id, :department_id, :subject,
             :description, :employee, :employee_email, presence: true
@@ -14,9 +15,9 @@ class Ticket < ApplicationRecord
 
   validates :employee_email,
             format: { with: Devise.email_regexp,
-                      message: "Wrong email format" }
+                      message: 'Wrong email format' }
 
   validates :employee,
             format: { with: /[A-ZА-Я]\w+\s[A-ZА-Я]\w+/,
-                      message: "Wrong Name format: Bond James" }
+                      message: 'Wrong Name format: Bond James' }
 end

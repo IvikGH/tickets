@@ -1,9 +1,12 @@
 <div class="card">
   <div class="card-block">
+
     <!-- Title and destroy -->
     <div class="row">
       <div class="col-8">
-        <h6 class="card-title"><%= ticket.subject%></h6>
+        <%= link_to ticket do %>
+          <span class="badge badge-info"><%= ticket.id %></span>
+        <% end %>
       </div>
       <div class="col-2">
         <%= link_to(edit_ticket_path(ticket), remote: true) do %>
@@ -11,11 +14,13 @@
         <% end %>
       </div>
       <div class="col-2">
-        <%= link_to(ticket, method: :delete, data: { confirm: 'Are you sure?' }, remote: true) do %>
+        <%= link_to(ticket, method: :delete,
+                    data: { confirm: 'Are you sure?' }, remote: true) do %>
           <span class="badge badge-danger">Destroy</span>
         <% end %>
       </div>
     </div>
+    <h6 class="card-title"><%= ticket.subject%></h6>
     <!-- Title and destroy -->
 
   </div>

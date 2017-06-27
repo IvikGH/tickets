@@ -2,7 +2,7 @@ class TicketsController < ApplicationController
 
   skip_before_action :authenticate_user!, only: [:create, :show]
 
-  before_action :set_ticket, only: [:show, :edit, :update, :destroy]
+  before_action :set_ticket, only: [:edit, :update, :destroy]
 
   # GET /tickets
   # GET /tickets.json
@@ -13,6 +13,7 @@ class TicketsController < ApplicationController
   # GET /tickets/1
   # GET /tickets/1.json
   def show
+    @ticket = Ticket.includes(:status, comments: [:user]).find(params[:id])
   end
 
   # GET /tickets/new
@@ -34,11 +35,10 @@ class TicketsController < ApplicationController
       if @ticket.save
         flash.now[:message] = 'Ticket was successfully created.'
         @ticket = nil
-        format.html { render 'devise/sessions/new' }
       else
         flash.now[:error] = @ticket.errors.messages.to_s
-        format.html { render 'devise/sessions/new' }
       end
+      format.html { render 'devise/sessions/new' }
     end
   end
 
@@ -74,7 +74,8 @@ class TicketsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ticket_params
-      params.require(:ticket).permit(:employee_email, :employee,
-                                     :department_id, :subject, :description)
+      params.require(:ticket).permit(:employee_email, :employee, :status_id,
+                                     :department_id, :subject, :description,
+                                     :user_id)
     end
 end
