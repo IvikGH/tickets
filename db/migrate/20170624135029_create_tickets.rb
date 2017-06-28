@@ -8,8 +8,7 @@ class CreateTickets < ActiveRecord::Migration[5.1]
       t.text :description, null: false
       t.string :employee, null: false
       t.string :employee_email, null: false
-      t.string :uniq_reference, :primary_key
-
+      t.string :uniq_reference, primary_key: true
       t.timestamps
     end
 

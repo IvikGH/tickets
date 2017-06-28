@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20170626094134) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "tickets", id: false, force: :cascade do |t|
+  create_table "tickets", primary_key: "uniq_reference", id: :string, force: :cascade do |t|
     t.bigint "status_id"
     t.bigint "user_id"
     t.bigint "department_id"
@@ -44,8 +44,6 @@ ActiveRecord::Schema.define(version: 20170626094134) do
     t.text "description", null: false
     t.string "employee", null: false
     t.string "employee_email", null: false
-    t.string "uniq_reference"
-    t.string "primary_key"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["department_id"], name: "index_tickets_on_department_id"
