@@ -1,0 +1,12 @@
+h3 = "Your ticket '#{@ticket.subject}' was created"
+
+=link_to 'You can see your ticket folowing this link', @ticket
+
+h6 Subject:
+p = @ticket.subject
+
+h6 Description:
+p = @ticket.description
+
+h6 reference
+p = @ticket.uniq_reference

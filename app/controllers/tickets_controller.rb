@@ -35,6 +35,8 @@ class TicketsController < ApplicationController
     respond_to do |format|
       if @ticket.save
         flash.now[:message] = 'Ticket was successfully created.'
+
+        TicketMailer.creation_inform(@ticket).deliver_later
         @ticket = nil
       else
         flash.now[:error] = @ticket.errors.messages.to_s
