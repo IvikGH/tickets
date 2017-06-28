@@ -5,7 +5,6 @@
     span.badge.badge-default> = @ticket.status.title
     span.badge.badge-default> = "Owned by #{@ticket.try(:user).try(:name)}"
 
-
     h4.card-title
       | Subject:
       span = @ticket.subject
@@ -14,22 +13,23 @@
     .jumbotron
       p.card-text = @ticket.description
 
-    = form_with url: @ticket, method: :patch, local: true do |form|
-      .field
-        = collection_select(:ticket, :status_id,
-                            Status.all, :id, :title, prompt: true)
-        = submit_tag("Change status")
+    - if current_user
+      = form_with url: @ticket, method: :patch, local: true do |form|
+        .field
+          = collection_select(:ticket, :status_id,
+                              Status.all, :id, :title, prompt: true)
+          = submit_tag("Change status")
 
-    = form_with url: @ticket, method: :patch, local: true do |form|
-      .field
-        = collection_select(:ticket, :user_id,
-                            User.all, :id, :name, prompt: true)
-        = submit_tag("Change owner")
+      = form_with url: @ticket, method: :patch, local: true do |form|
+        .field
+          = collection_select(:ticket, :user_id,
+                              User.all, :id, :name, prompt: true)
+          = submit_tag("Change owner")
 
-    - unless @ticket.user_id == current_user.id
-      = form_with model: @ticket, method: :patch, local: true do |form|
-        = hidden_field(:ticket, :user_id, value: current_user.id)
-        = submit_tag('Own the ticket', class: 'btn btn-success')
+      - unless @ticket.user_id == current_user.id
+        = form_with model: @ticket, method: :patch, local: true do |form|
+          = hidden_field(:ticket, :user_id, value: current_user.id)
+          = submit_tag('Own the ticket', class: 'btn btn-success')
 
     br
     h6.card-subtitle.mb-2.text-muted
