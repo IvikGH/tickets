@@ -34,7 +34,6 @@ gem 'bootstrap', '~> 4.0.0.alpha6'
 gem 'devise'
 gem 'dotenv'
 gem 'jquery-rails'
-gem 'paper_trail', '~> 7.0', '>= 7.0.2'
 gem 'slim-rails', '~> 3.1', '>= 3.1.2'
 
 gem 'mailgun-ruby', '~> 1.1', '>= 1.1.6'
