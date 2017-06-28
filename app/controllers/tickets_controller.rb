@@ -30,6 +30,7 @@ class TicketsController < ApplicationController
   def create
     @ticket = Ticket.new(ticket_params)
     @ticket.status_id = Status.find_by_title('Waiting for Staff Response').id
+    AddTeferenceToTicket.add_ref(@ticket)
 
     respond_to do |format|
       if @ticket.save

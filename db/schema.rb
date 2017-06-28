@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170626094134) do
+ActiveRecord::Schema.define(version: 20170627154658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,8 +47,10 @@ ActiveRecord::Schema.define(version: 20170626094134) do
     t.string "employee_email", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "uniq_reference", limit: 17, null: false
     t.index ["department_id"], name: "index_tickets_on_department_id"
     t.index ["status_id"], name: "index_tickets_on_status_id"
+    t.index ["uniq_reference"], name: "index_tickets_on_uniq_reference", unique: true
     t.index ["user_id"], name: "index_tickets_on_user_id"
   end
 
