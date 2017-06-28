@@ -1,5 +1,7 @@
 class Ticket < ApplicationRecord
 
+  self.primary_key = 'uniq_reference'
+
   belongs_to :status
   belongs_to :user, optional: true
   belongs_to :department
