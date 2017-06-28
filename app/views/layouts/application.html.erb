@@ -9,6 +9,11 @@
   </head>
 
   <body>
+
+    <% if user_signed_in? %>
+      <%= render 'shared/header' %>
+    <% end %>
+
     <% message = notice || flash[:message] %>
     <% if message %>
       <p class="alert alert-success"><%= message %></p>
@@ -18,6 +23,7 @@
     <% if error %>
       <p class="alert alert-danger"><%= error %></p>
     <% end %>
+    </br>
 
     <%= yield %>
   </body>
