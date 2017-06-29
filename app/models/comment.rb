@@ -8,7 +8,5 @@ class Comment < ApplicationRecord
   validates :user_id, numericality: true,
             unless: Proc.new { |ticket| ticket.user_id.blank? }
 
-  validates :ticket_id, numericality: true
-
   validates_format_of :body, with: /.+/, message: 'Message body shouldn`t be empty'
 end
