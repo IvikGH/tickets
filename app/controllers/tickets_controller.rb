@@ -10,6 +10,24 @@ class TicketsController < ApplicationController
     @tickets = Ticket.all
   end
 
+  def search
+    if params[:search][0] == '#'
+      @tickets = Ticket.where("uniq_reference LIKE ?",
+                             "%#{params[:search][1..-1]}%")
+      if @tickets.size == 1
+        @ticket = @tickets[0]
+        render :show
+      else
+        render :index
+      end
+    else
+      @tickets = Task.where("subject LIKE ? OR description LIKE ?",
+                            "%#{params[:search]}%",
+                            "%#{params[:search]}%")
+      render :index
+    end
+  end
+
   # GET /tickets/1
   # GET /tickets/1.json
   def show
