@@ -43,6 +43,8 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry-rails'
   gem 'rspec-rails', '~> 3.6'
+  gem 'factory_girl_rails'
+  gem 'faker'
 end
 
 # Use Capistrano for deployment
