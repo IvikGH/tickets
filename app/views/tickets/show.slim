@@ -1,7 +1,5 @@
 .card
   .card-block
-    a.btn.btn-primary href="/tickets" Tickets board
-    hr
     span.badge.badge-default> = @ticket.status.title
     span.badge.badge-default> = "Owned by #{@ticket.try(:user).try(:name)}"
 
