@@ -21,7 +21,7 @@ class TicketsController < ApplicationController
         render :index
       end
     else
-      @tickets = Task.where("subject LIKE ? OR description LIKE ?",
+      @tickets = Ticket.where("subject LIKE ? OR description LIKE ?",
                             "%#{params[:search]}%",
                             "%#{params[:search]}%")
       render :index
