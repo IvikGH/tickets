@@ -31,7 +31,11 @@ class TicketsController < ApplicationController
   # GET /tickets/1
   # GET /tickets/1.json
   def show
-    @ticket = Ticket.includes(:status, comments: [:user]).find(params[:id])
+    @ticket = Ticket.find(params[:id])
+    @objects = TicketChange.where(ticket_id: params[:id]).to_a +
+               Comment.where(ticket_id: params[:id]).to_a
+
+    @objects.sort! { |a,b| a.created_at <=> b.created_at }
   end
 
   # GET /tickets/new
@@ -68,6 +72,7 @@ class TicketsController < ApplicationController
   def update
     respond_to do |format|
       if @ticket.update(ticket_params)
+        TicketChangesWriter.write_changes(@ticket)
         format.html { redirect_to @ticket, notice: 'Ticket was successfully updated.' }
         format.json { render :show, status: :ok, location: @ticket }
       else

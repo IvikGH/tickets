@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170626094134) do
+ActiveRecord::Schema.define(version: 20170630143639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,16 @@ ActiveRecord::Schema.define(version: 20170626094134) do
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "ticket_changes", force: :cascade do |t|
+    t.string "ticket_id"
+    t.string "attribute_class", null: false
+    t.string "prev_value", null: false
+    t.string "current_value", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ticket_id"], name: "index_ticket_changes_on_ticket_id"
   end
 
   create_table "tickets", primary_key: "uniq_reference", id: :string, force: :cascade do |t|
@@ -74,6 +84,7 @@ ActiveRecord::Schema.define(version: 20170626094134) do
 
   add_foreign_key "comments", "tickets", primary_key: "uniq_reference"
   add_foreign_key "comments", "users"
+  add_foreign_key "ticket_changes", "tickets", primary_key: "uniq_reference"
   add_foreign_key "tickets", "departments"
   add_foreign_key "tickets", "statuses"
   add_foreign_key "tickets", "users"

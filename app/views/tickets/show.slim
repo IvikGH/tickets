@@ -40,11 +40,17 @@
         = submit_tag("Add comment")
 
     br
-    h6.card-subtitle.mb-2.text-muted Comments:
+    h6.card-subtitle.mb-2.text-muted Comments and changes:
 
-    - @ticket.comments.each do |comment|
+    - @objects.each do |object|
       div
-        p = comment.body
-        p.card-subtitle.mb-2.text-muted = "#{comment.user.name} at #{comment.created_at}"
-        hr
+        - time = object.created_at.strftime("at %H:%M %d-%m-%Y")
+        - if object.class.name == 'Comment'
+            p.card-subtitle.mb-2.text-muted = "#{time}: #{object.user.name} wrote:"
+            p = object.body
+            hr
+        - else
+            p.card-subtitle.mb-2.text-muted
+              = "#{time}: #{object.attribute_class.downcase} was changed: from '#{object.prev_value}' to '#{object.current_value}'"
+            hr
 

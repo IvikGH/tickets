@@ -6,6 +6,7 @@ class Ticket < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :department
   has_many   :comments, dependent: :destroy
+  has_many   :ticket_changes, dependent: :destroy
 
   validates_presence_of :status_id, :department_id, :subject, :description,
                         :employee, :employee_email, :uniq_reference
