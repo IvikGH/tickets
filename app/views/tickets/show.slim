@@ -30,9 +30,6 @@
           = submit_tag('Own the ticket', class: 'btn btn-success')
 
     br
-    h6.card-subtitle.mb-2.text-muted
-      | Add comment:
-
     div
       = form_with url: ticket_comments_path(@ticket), local: true do |form|
         = text_area(:comment, :body)

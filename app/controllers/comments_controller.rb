@@ -7,14 +7,12 @@ class CommentsController < ApplicationController
     @comment.user_id = current_user.id
     @comment.ticket_id = params[:ticket_id]
 
-    respond_to do |format|
-      if @comment.save
-        flash.now[:message] = 'Your comment was successfully created.'
-      else
-        flash[:error] = @comment.errors.messages.to_s
-      end
-      format.html { redirect_to @comment.ticket }
+    if @comment.save
+      flash.now[:message] = 'Your comment was successfully created.'
+    else
+      flash[:error] = @comment.errors.messages.to_s
     end
+    redirect_to @comment.ticket
   end
 
   private

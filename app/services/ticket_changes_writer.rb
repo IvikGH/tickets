@@ -21,5 +21,4 @@ class TicketChangesWriter
                           current_value: instances.last.public_send(attribute_name))
     end
   end
-
 end
