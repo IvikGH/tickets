@@ -45,6 +45,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.6'
   gem 'factory_girl_rails'
   gem 'faker'
+  gem 'capybara', '~> 2.7', '>= 2.7.1'
 end
 
 # Use Capistrano for deployment
