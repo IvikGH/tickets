@@ -10,8 +10,6 @@ class Ticket < ApplicationRecord
   validates_presence_of :status_id, :department_id, :subject, :description,
                         :employee, :employee_email, :uniq_reference
 
-  validates :department_id, :status_id, numericality: true
-
   validates :user_id, numericality: true,
             unless: Proc.new { |ticket| ticket.user_id.blank? }
 
@@ -20,10 +18,11 @@ class Ticket < ApplicationRecord
                       message: 'Wrong email format' }
 
   validates :employee,
-            format: { with: /[A-ZА-Я]\w+\s[A-ZА-Я]\w+/,
+            format: { with: /([A-ZА-Я]\w+\s)+[A-ZА-Я]\w+/,
                       message: 'Wrong Name format: Bond James' }
 
   validates :uniq_reference, length: { maximum: 17 }
-  validates :uniq_reference, format: { with: /[A-Z0-9-]{17}/ }
+  validates :uniq_reference,
+            format: { with: /[A-F\d]{3}-[A-F\d]{2}-[A-F\d]{3}-[A-F\d]{2}-[A-F\d]{3}/ }
 
 end
