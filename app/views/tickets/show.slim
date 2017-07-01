@@ -39,7 +39,7 @@
     br
     h6.card-subtitle.mb-2.text-muted Comments and changes:
 
-    - @objects.each do |object|
+    - @actions.each do |object|
       div
         - time = object.created_at.strftime("at %H:%M %d-%m-%Y")
         - if object.class.name == 'Comment'

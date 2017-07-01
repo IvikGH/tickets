@@ -12,11 +12,12 @@ class TicketsController < ApplicationController
   end
 
   def search
-    if params[:search][0] == '#'
+    if search_by_uniq_reference?
       @tickets = Ticket.where("uniq_reference LIKE ?",
                              "%#{params[:search][1..-1]}%")
       if @tickets.size == 1
         @ticket = @tickets[0]
+        @actions = ActionsGatherer.call(params[:id])
         render :show
       else
         render :index
@@ -32,10 +33,7 @@ class TicketsController < ApplicationController
   # GET /tickets/1
   def show
     @ticket = Ticket.find(params[:id])
-    @objects = TicketChange.where(ticket_id: params[:id]).to_a +
-               Comment.where(ticket_id: params[:id]).to_a
-
-    @objects.sort! { |a,b| a.created_at <=> b.created_at }
+    @actions = ActionsGatherer.call(params[:id])
   end
 
   # GET /tickets/new
@@ -91,5 +89,9 @@ class TicketsController < ApplicationController
     params.require(:ticket).permit(:employee_email, :employee, :status_id,
                                    :department_id, :subject, :description,
                                    :user_id)
+  end
+
+  def search_by_uniq_reference?
+    params[:search][0] == '#'
   end
 end
