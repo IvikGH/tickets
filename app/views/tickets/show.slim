@@ -4,7 +4,7 @@
     span.badge.badge-default> = "Owned by #{@ticket.try(:user).try(:name)}"
 
     h4.card-title
-      | Subject:
+      ' Subject:
       span = @ticket.subject
     h6.card-subtitle.mb-2.text-muted
       = "Reported by: #{@ticket.employee} (#{@ticket.employee_email})"

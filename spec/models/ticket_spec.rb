@@ -10,6 +10,10 @@ RSpec.describe Ticket, type: :model do
     expect(build(:ticket).valid?).to be_truthy
   end
 
+  it 'has valid factory' do
+    expect(build(:ticket).valid?).to be_truthy
+  end
+
   describe 'validations' do
     it 'is invalid without a status_id' do
       expect(build(:ticket, status_id: nil).valid?).to be_falsey
