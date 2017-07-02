@@ -1,4 +1,4 @@
-class TicketMailer < ApplicationMailer
+class TicketsMailer < ApplicationMailer
 
   def creation_inform(ticket)
     @ticket = ticket

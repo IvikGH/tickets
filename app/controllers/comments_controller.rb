@@ -12,6 +12,8 @@ class CommentsController < ApplicationController
     else
       flash[:error] = @comment.errors.messages.to_s
     end
+
+    CommentsMailer.new_comment_inform(@comment, current_user).deliver_later
     redirect_to @comment.ticket
   end
 
