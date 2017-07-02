@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "Log in page", type: :feature do
   scenario "Ticket can be created without login" do
-    FactoryGirl.create(:status, title: 'Waiting for Staff Response')
+    generate_standart_statuses
     FactoryGirl.create(:department)
 
     visit new_user_session_path
